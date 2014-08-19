@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for module &quot;txpoolM1&quot;</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="generate">Extension t3x file generation</label>
+			<label index="header_generate">You can generate the compressed extension file from here</label>
+		</languageKey>
+	</data>
+</T3locallang>

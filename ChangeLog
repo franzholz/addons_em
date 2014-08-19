@@ -1,0 +1,10 @@
+(add new changes on top of this file)
+
+2014-08-19 Franz Holzinger  <franz@ttproducts.de>
+	* Add a function to remove fields from the TCA: tx_addonsem_tca_div::removeFieldsFromTCA
+
+2014-07-16 Franz Holzinger  <franz@ttproducts.de>
+	* Upload as version 0.0.1 into TER
+
+2011-05-15 Franz Holzinger  <franz@ttproducts.de>
+	* Initial release
