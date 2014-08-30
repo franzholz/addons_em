@@ -1,5 +1,9 @@
 (add new changes on top of this file)
 
+
+2014-08-30 Franz Holzinger  <franz@ttproducts.de>
+	* add tx_em_Tools::getSerializedLocalLang because tx_em_Tools have gone lost
+
 2014-08-19 Franz Holzinger  <franz@ttproducts.de>
 	* Add a function to remove fields from the TCA: tx_addonsem_tca_div::removeFieldsFromTCA
 

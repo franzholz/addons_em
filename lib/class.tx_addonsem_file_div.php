@@ -44,6 +44,28 @@
 class tx_addonsem_file_div {
 
 	/**
+	 * Include a locallang file and return the $LOCAL_LANG array serialized.
+	 *
+	 * @param	string		Absolute path to locallang file to include.
+	 * @param	string		Old content of a locallang file (keeping the header content)
+	 * @return	array		Array with header/content as key 0/1
+	 * @see makeUploadarray()
+	 */
+	static public function getSerializedLocalLang($file, $content) {
+		$LOCAL_LANG = NULL;
+		$returnParts = explode('$LOCAL_LANG', $content, 2);
+
+		include($file);
+		if (is_array($LOCAL_LANG)) {
+			$returnParts[1] = serialize($LOCAL_LANG);
+			return $returnParts;
+		} else {
+			return array();
+		}
+	}
+
+
+	/**
 	 * Encodes extension upload array
 	 *
 	 * @param	array		Array containing extension
@@ -168,7 +190,7 @@ class tx_addonsem_file_div {
 							strstr($uploadArray['FILES'][$relFileName]['content'], '$LOCAL_LANG')
 						) {
 							$uploadArray['FILES'][$relFileName]['LOCAL_LANG'] =
-								tx_em_Tools::getSerializedLocalLang(
+								self::getSerializedLocalLang(
 									$file,
 									$uploadArray['FILES'][$relFileName]['content']
 								);
