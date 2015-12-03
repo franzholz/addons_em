@@ -1,5 +1,7 @@
 (add new changes on top of this file)
 
+2015-12-03 Franz Holzinger  <franz@ttproducts.de>
+	* Move into UTF-8 characters
 
 2014-08-30 Franz Holzinger  <franz@ttproducts.de>
 	* add tx_em_Tools::getSerializedLocalLang because tx_em_Tools have gone lost

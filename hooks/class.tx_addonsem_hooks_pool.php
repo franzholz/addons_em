@@ -40,6 +40,7 @@
  */
 
 
+
 class tx_addonsem_hooks_pool extends tx_pool_hooks_base {
 	public $extKey = 'addons_em';
 	public $prefixId = 'tx_addonsem_hooks_pool';	// Same as class name
@@ -106,7 +107,7 @@ class tx_addonsem_hooks_pool extends tx_pool_hooks_base {
 
 				if (is_array($extInfo)) {
 
-						// Ausführen des Kommandos und EXIT
+						// AusfÃ¼hren des Kommandos und EXIT
 					tx_addonsem_file_div::extBackup($config['extKey'], $path, $extInfo);
 				} else {
 					$errorText = $extInfo;
@@ -123,7 +124,7 @@ class tx_addonsem_hooks_pool extends tx_pool_hooks_base {
 			$pathDestination = 'fileadmin/extension/licence/tt_products-' . $config['version'] . '/';
 
 			$content .= 'Es wird die Extension "' . $config['extKey'] . '" aus dem Verzeichnis "' . $pathSource . '" generiert<br/>';
-			$content .= 'Die Domäne für die Lizenz ist "' . $url . '"<br/>';
+			$content .= 'Die DomÃ¤ne fÃ¼r die Lizenz ist "' . $url . '"<br/>';
 			$content .= 'Das Zielverzeichnis ist "' . $pathDestination . '"<br/>';
 		}
 		$content .= '<br/>';
@@ -132,9 +133,6 @@ class tx_addonsem_hooks_pool extends tx_pool_hooks_base {
 		$content .= '<p>Patch Level: </p><input type="text" title="Patch" name="' . $this->prefixId . '[patchlevel]" value="' . $config['patchlevel'] . '" />"';
 		$content .= '<br/>';
 		$content .= '<input type="submit" name="' . $postVar . '[save]" title="Save" value="&Auml;ndern" >&nbsp;&nbsp;&nbsp;';
-
-/*		$content .= '<input type="submit" name="' . $postVar . '[download]" title="Download the extension archive" value="Herunterladen" >' . t3lib_iconWorks::getSpriteIcon('actions-system-extension-download') . '<br/>';*/
-
 
 		$directLink = 'index.php?M=txpoolM1';
 

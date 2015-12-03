@@ -51,7 +51,7 @@ class tx_addonsem_file_div {
 	 * @return	array		Array with header/content as key 0/1
 	 * @see makeUploadarray()
 	 */
-	static public function getSerializedLocalLang($file, $content) {
+	static public function getSerializedLocalLang ($file, $content) {
 		$LOCAL_LANG = NULL;
 		$returnParts = explode('$LOCAL_LANG', $content, 2);
 
@@ -235,6 +235,7 @@ class tx_addonsem_file_div {
 		}
 		return $result;
 	}
+
 
 	/**
 	 * Download extension as file / make backup
