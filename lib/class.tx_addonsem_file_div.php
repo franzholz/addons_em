@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2014 Franz Holzinger (franz@ttproducts.de)
+*  (c) 2016 Franz Holzinger (franz@ttproducts.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -96,13 +96,22 @@ class tx_addonsem_file_div {
 
 		$result = FALSE;
 		$hookVar = 'file';
+		$callingClassName = '\\TYPO3\\CMS\\Core\\Utility\\GeneralUtility';
+
+		if (
+			!class_exists($callingClassName) ||
+			!method_exists($callingClassName, 'getAllFilesAndFoldersInPath')
+		) {
+			$callingClassName = 't3lib_div';
+		}
 
 		if ($extKey != '' && $extPath != '' && is_array($conf)) {
 
 			// Get files for extension:
 			$fileArray = array();
 			$fileArray =
-				t3lib_div::getAllFilesAndFoldersInPath(
+				call_user_func(
+					$callingClassName . '::getAllFilesAndFoldersInPath',
 					$fileArray,
 					$extPath,
 					'',
@@ -119,7 +128,11 @@ class tx_addonsem_file_div {
 				is_array ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
 			) {
 				foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar] as $classRef) {
-					$hookObj= t3lib_div::getUserObj($classRef);
+					$hookObj= call_user_func(
+						$callingClassName . '::getUserObj',
+						$classRef
+					);
+
 					if (method_exists($hookObj, 'getGeneratedFilenames')) {
 
 						$result =
@@ -154,7 +167,10 @@ class tx_addonsem_file_div {
 // 						'size' => filesize($file),
 						'mtime' => filemtime($file),
 						'is_executable' => (TYPO3_OS == 'WIN' ? 0 : is_executable($file)),
-						'content' => t3lib_div::getUrl($file)
+						'content' => call_user_func(
+								$callingClassName . '::getUrl',
+								$file
+							)
 					);
 
 					if (
@@ -162,7 +178,10 @@ class tx_addonsem_file_div {
 						is_array ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
 					) {
 						foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar] as $classRef) {
-							$hookObj= t3lib_div::getUserObj($classRef);
+							$hookObj = call_user_func(
+								$callingClassName . '::getUserObj',
+								$classRef
+							);
 							if (method_exists($hookObj, 'modifyFile')) {
 								$result =
 									$hookObj->modifyFile(
@@ -177,7 +196,7 @@ class tx_addonsem_file_div {
 						}
 					}
 
-					if (t3lib_div::inList('php,inc', strtolower($fI['extension']))) {
+					if (call_user_func($callingClassName . '::inList', 'php,inc', strtolower($fI['extension']))) {
 						$uploadArray['FILES'][$relFileName]['codelines'] = count(explode(LF, $uploadArray['FILES'][$relFileName]['content']));
 
 						$uploadArray['FILES'][$relFileName]['size'] = strlen($uploadArray['FILES'][$relFileName]['content']);
@@ -206,7 +225,11 @@ class tx_addonsem_file_div {
 				is_array ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
 			) {
 				foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar] as $classRef) {
-					$hookObj= t3lib_div::getUserObj($classRef);
+					$hookObj = call_user_func(
+						$callingClassName . '::getUserObj',
+						$classRef
+					);
+
 					if (method_exists($hookObj, 'addFile')) {
 						$result =
 							$hookObj->addFile(
@@ -227,7 +250,10 @@ class tx_addonsem_file_div {
 		} else {
 			$LANG = $GLOBALS['LANG'];
 			if (!is_object($LANG)) {
-				$LANG = t3lib_div::makeInstance('language');
+				$LANG = call_user_func(
+						$callingClassName . '::makeInstance',
+						'language'
+					);
 				$LANG->init($GLOBALS['TSFE']->tmpl->setup['config.']['language']);
 			}
 			$result = sprintf($LANG->getLL('makeUploadArray_error_path'),
@@ -245,6 +271,17 @@ class tx_addonsem_file_div {
 	 * @return	void		EXIT from PHP
 	 */
 	static public function extBackup ($extKey, $path, $extInfo, $orderRow, $variantVars) {
+
+		$result = FALSE;
+
+		$callingClassName = '\\TYPO3\\CMS\\Core\\Utility\\GeneralUtility';
+
+		if (
+			!class_exists($callingClassName) ||
+			!method_exists($callingClassName, 'makeInstance')
+		) {
+			$callingClassName = 't3lib_div';
+		}
 
 		$uArr =
 			self::makeUploadarray(
@@ -268,7 +305,11 @@ class tx_addonsem_file_div {
 		} else {
 			$LANG = $GLOBALS['LANG'];
 			if (!is_object($LANG)) {
-				$LANG = t3lib_div::makeInstance('language');
+				$LANG = call_user_func(
+						$callingClassName . '::makeInstance',
+						'language'
+					);
+
 				$LANG->init($GLOBALS['TSFE']->tmpl->setup['config.']['language']);
 			}
 			throw new RuntimeException(
@@ -288,23 +329,8 @@ class tx_addonsem_file_div {
 	 */
 	static public function writeLocalconfValue ($extKey, $newValue, $updateIdentity) {
 
-		// Instance of install tool
-		$instObj = new t3lib_install;
-		$instObj->allowUpdateLocalConf = 1;
-		$instObj->updateIdentity = $updateIdentity;
-
-		// Get lines from localconf file
-		$lines = $instObj->writeToLocalconf_control();
-		$instObj->setValueInLocalconfFile(
-			$lines,
-			'$TYPO3_CONF_VARS[\'EXT\'][\'extConf\'][\'' . $extKey . '\']',
-			$newValue
-		);
-		$instObj->writeToLocalconf_control($lines);
-
-		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$extKey] = $newValue;
+		\TYPO3\CMS\Core\Utility\GeneralUtility::logDeprecatedFunction();
+		return FALSE;
 	}
 }
 
-
-?>

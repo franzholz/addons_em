@@ -1,5 +1,9 @@
 (add new changes on top of this file)
 
+2016-01-29 Franz Holzinger  <franz@ttproducts.de>
+	* for TYPO3 7.6.2: replace calls to t3lib_div by class \TYPO3\CMS\Core\Utility\GeneralUtility
+	* deprecate method writeLocalconfValue
+
 2015-12-03 Franz Holzinger  <franz@ttproducts.de>
 	* Move into UTF-8 characters
 
