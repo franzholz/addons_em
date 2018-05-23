@@ -29,7 +29,7 @@
  *
  * hook functions for the pool extension
  *
- * $Id$
+ * $Id: class.tx_addonsem_hooks_pool.php 323 2015-12-03 11:27:01Z franzholz $
  *
  * @author	Franz Holzinger <franz@ttproducts.de>
  * @maintainer	Franz Holzinger <franz@ttproducts.de>

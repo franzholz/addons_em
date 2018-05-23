@@ -18,3 +18,4 @@ return array(
 	'tx_addonsem_file_div' => $extensionPath . 'lib/class.tx_addonsem_file_div.php',
 	'tx_addonsem_tca_div' => $extensionPath . 'lib/class.tx_addonsem_tca_div.php',
 );
+
