@@ -94,5 +94,3 @@ class tx_addonsem_tca_div {
 	}
 }
 
-
-?>

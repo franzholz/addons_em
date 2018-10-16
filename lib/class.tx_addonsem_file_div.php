@@ -29,8 +29,6 @@
  *
  * download functions for extensions
  *
- * $Id: class.tx_addonsem_file_div.php 338 2016-01-29 11:10:09Z franzholz $
- *
  * @author	Franz Holzinger <franz@ttproducts.de>
  * @maintainer	Franz Holzinger <franz@ttproducts.de>
  * @package TYPO3

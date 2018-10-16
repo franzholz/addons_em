@@ -1,3 +1,6 @@
+2018-10-16 Franz Holzinger  <franz@ttproducts.de>
+    * use \TYPO3\CMS\Core\Utility\ExtensionManagementUtility instead of t3lib_extMgm
+
 2018-10-05 Franz Holzinger  <franz@ttproducts.de>
     * modification in composer.json
 
