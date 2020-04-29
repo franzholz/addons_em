@@ -1,3 +1,7 @@
+2020-04-29 Franz Holzinger  <franz@ttproducts.de>
+    * compatible with TYPO3 9.5
+    * modification in composer.json
+
 2018-10-16 Franz Holzinger  <franz@ttproducts.de>
     * use \TYPO3\CMS\Core\Utility\ExtensionManagementUtility instead of t3lib_extMgm
 

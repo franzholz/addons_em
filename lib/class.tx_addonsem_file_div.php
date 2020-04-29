@@ -38,7 +38,6 @@
  */
 
 
-
 class tx_addonsem_file_div {
 
 	/**
@@ -49,8 +48,9 @@ class tx_addonsem_file_div {
 	 * @return	array		Array with header/content as key 0/1
 	 * @see makeUploadarray()
 	 */
-	static public function getSerializedLocalLang ($file, $content) {
-		$LOCAL_LANG = NULL;
+	static public function getSerializedLocalLang ($file, $content)
+	{
+		$LOCAL_LANG = null;
 		$returnParts = explode('$LOCAL_LANG', $content, 2);
 
 		include($file);
@@ -62,14 +62,14 @@ class tx_addonsem_file_div {
 		}
 	}
 
-
 	/**
 	 * Encodes extension upload array
 	 *
 	 * @param	array		Array containing extension
 	 * @return	string		Content stream
 	 */
-	static public function makeUploadDataFromarray ($uploadArray) {
+	static public function makeUploadDataFromarray ($uploadArray)
+	{
 		$content = '';
 		if (is_array($uploadArray)) {
 			$serialized = serialize($uploadArray);
@@ -82,7 +82,6 @@ class tx_addonsem_file_div {
 		return $content;
 	}
 
-
 	/**
 	 * Make upload array out of extension
 	 *
@@ -90,9 +89,9 @@ class tx_addonsem_file_div {
 	 * @param	array		Extension information array
 	 * @return	mixed		Returns array with extension upload array on success, otherwise an error string.
 	 */
-	static function makeUploadarray ($extKey, $extPath, $conf, $orderRow, $variantVars) {
-
-		$result = FALSE;
+	static function makeUploadarray ($extKey, $extPath, $conf, $orderRow, $variantVars)
+	{
+		$result = false;
 		$hookVar = 'file';
 		$callingClassName = '\\TYPO3\\CMS\\Core\\Utility\\GeneralUtility';
 
@@ -260,7 +259,6 @@ class tx_addonsem_file_div {
 		return $result;
 	}
 
-
 	/**
 	 * Download extension as file / make backup
 	 *
@@ -268,9 +266,9 @@ class tx_addonsem_file_div {
 	 * @param	array		Extension information array
 	 * @return	void		EXIT from PHP
 	 */
-	static public function extBackup ($extKey, $path, $extInfo, $orderRow, $variantVars) {
-
-		$result = FALSE;
+	static public function extBackup ($extKey, $path, $extInfo, $orderRow, $variantVars)
+	{
+		$result = false;
 
 		$callingClassName = '\\TYPO3\\CMS\\Core\\Utility\\GeneralUtility';
 
@@ -317,7 +315,6 @@ class tx_addonsem_file_div {
 		}
 	}
 
-
 	/**
 	 * Writes the extension list to "localconf.php" file
 	 * Removes the temp_CACHED* files before return.
@@ -325,10 +322,10 @@ class tx_addonsem_file_div {
 	 * @param	string		List of extensions
 	 * @return	void
 	 */
-	static public function writeLocalconfValue ($extKey, $newValue, $updateIdentity) {
-
+	static public function writeLocalconfValue ($extKey, $newValue, $updateIdentity)
+	{
 		\TYPO3\CMS\Core\Utility\GeneralUtility::logDeprecatedFunction();
-		return FALSE;
+		return false;
 	}
 }
 
