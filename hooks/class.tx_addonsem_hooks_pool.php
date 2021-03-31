@@ -148,9 +148,3 @@ class tx_addonsem_hooks_pool extends tx_pool_hooks_base {
 	}
 }
 
-
-if (defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/addons_em/hooks/class.tx_addonsem_hooks_pool.php'])	{
-	include_once($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/addons_em/hooks/class.tx_addonsem_hooks_pool.php']);
-}
-
-?>

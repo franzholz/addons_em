@@ -1,3 +1,6 @@
+2021-03-31 Franz Holzinger  <franz@ttproducts.de>
+    * compatible with TYPO3 10.4
+
 2020-04-29 Franz Holzinger  <franz@ttproducts.de>
     * compatible with TYPO3 9.5
     * modification in composer.json

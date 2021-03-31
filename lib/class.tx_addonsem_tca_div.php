@@ -37,7 +37,9 @@
  *
  */
 
-
+/*  deprecated. 
+*   Use \JambageCom\Div2007\Utility\TcaUtility::removeField() instead of it.
+*/
 
 class tx_addonsem_tca_div {
 

@@ -37,6 +37,9 @@
  *
  */
 
+use \TYPO3\CMS\Core\Utility\GeneralUtility;
+
+
 
 class tx_addonsem_file_div {
 
@@ -93,22 +96,13 @@ class tx_addonsem_file_div {
 	{
 		$result = false;
 		$hookVar = 'file';
-		$callingClassName = '\\TYPO3\\CMS\\Core\\Utility\\GeneralUtility';
-
-		if (
-			!class_exists($callingClassName) ||
-			!method_exists($callingClassName, 'getAllFilesAndFoldersInPath')
-		) {
-			$callingClassName = 't3lib_div';
-		}
 
 		if ($extKey != '' && $extPath != '' && is_array($conf)) {
 
 			// Get files for extension:
 			$fileArray = array();
 			$fileArray =
-				call_user_func(
-					$callingClassName . '::getAllFilesAndFoldersInPath',
+				GeneralUtility::getAllFilesAndFoldersInPath(
 					$fileArray,
 					$extPath,
 					'',
@@ -125,8 +119,7 @@ class tx_addonsem_file_div {
 				is_array ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
 			) {
 				foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar] as $classRef) {
-					$hookObj= call_user_func(
-						$callingClassName . '::getUserObj',
+					$hookObj = GeneralUtility::getUserObj(
 						$classRef
 					);
 
@@ -163,9 +156,8 @@ class tx_addonsem_file_div {
 						'name' => $relFileName,
 // 						'size' => filesize($file),
 						'mtime' => filemtime($file),
-						'is_executable' => (TYPO3_OS == 'WIN' ? 0 : is_executable($file)),
-						'content' => call_user_func(
-								$callingClassName . '::getUrl',
+						'is_executable' => (\TYPO3\CMS\Core\Core\Environment::isWindows() ? 0 : is_executable($file)),
+						'content' => GeneralUtility::getUrl(
 								$file
 							)
 					);
@@ -175,8 +167,7 @@ class tx_addonsem_file_div {
 						is_array ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
 					) {
 						foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar] as $classRef) {
-							$hookObj = call_user_func(
-								$callingClassName . '::getUserObj',
+							$hookObj = GeneralUtility::getUserObj(
 								$classRef
 							);
 							if (method_exists($hookObj, 'modifyFile')) {
@@ -193,7 +184,7 @@ class tx_addonsem_file_div {
 						}
 					}
 
-					if (call_user_func($callingClassName . '::inList', 'php,inc', strtolower($fI['extension']))) {
+					if (GeneralUtility::inList('php,inc', strtolower($fI['extension']))) {
 						$uploadArray['FILES'][$relFileName]['codelines'] = count(explode(LF, $uploadArray['FILES'][$relFileName]['content']));
 
 						$uploadArray['FILES'][$relFileName]['size'] = strlen($uploadArray['FILES'][$relFileName]['content']);
@@ -222,8 +213,7 @@ class tx_addonsem_file_div {
 				is_array ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
 			) {
 				foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar] as $classRef) {
-					$hookObj = call_user_func(
-						$callingClassName . '::getUserObj',
+					$hookObj = GeneralUtility::getUserObj(
 						$classRef
 					);
 
@@ -247,8 +237,7 @@ class tx_addonsem_file_div {
 		} else {
 			$LANG = $GLOBALS['LANG'];
 			if (!is_object($LANG)) {
-				$LANG = call_user_func(
-						$callingClassName . '::makeInstance',
+				$LANG = GeneralUtility::makeInstance(
 						'language'
 					);
 				$LANG->init($GLOBALS['TSFE']->tmpl->setup['config.']['language']);
@@ -269,16 +258,6 @@ class tx_addonsem_file_div {
 	static public function extBackup ($extKey, $path, $extInfo, $orderRow, $variantVars)
 	{
 		$result = false;
-
-		$callingClassName = '\\TYPO3\\CMS\\Core\\Utility\\GeneralUtility';
-
-		if (
-			!class_exists($callingClassName) ||
-			!method_exists($callingClassName, 'makeInstance')
-		) {
-			$callingClassName = 't3lib_div';
-		}
-
 		$uArr =
 			self::makeUploadarray(
 				$extKey,
@@ -301,11 +280,9 @@ class tx_addonsem_file_div {
 		} else {
 			$LANG = $GLOBALS['LANG'];
 			if (!is_object($LANG)) {
-				$LANG = call_user_func(
-						$callingClassName . '::makeInstance',
+				$LANG = GeneralUtility::makeInstance(
 						'language'
 					);
-
 				$LANG->init($GLOBALS['TSFE']->tmpl->setup['config.']['language']);
 			}
 			throw new RuntimeException(

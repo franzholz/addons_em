@@ -11,14 +11,12 @@ $EM_CONF[$_EXTKEY] = array(
     'author' => 'Franz Holzinger',
     'author_email' => 'franz@ttproducts.de',
     'state' => 'stable',
-    'uploadfolder' => 0,
-    'createDirs' => '',
     'clearCacheOnLoad' => 0,
     'author_company' => '',
-    'version' => '0.2.3',
+    'version' => '0.3.0',
     'constraints' => array(
         'depends' => array(
-            'typo3' => '6.2.0-9.5.99',
+            'typo3' => '9.5.0-10.4.99',
         ),
         'conflicts' => array(
         ),
