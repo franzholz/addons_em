@@ -152,15 +152,29 @@ class tx_addonsem_file_div {
 
 				if (!in_array($relFileName, $generatedFilenames)) { // This file should be dynamically written...
 
-					$uploadArray['FILES'][$relFileName] = array(
-						'name' => $relFileName,
-// 						'size' => filesize($file),
-						'mtime' => filemtime($file),
-						'is_executable' => (\TYPO3\CMS\Core\Core\Environment::isWindows() ? 0 : is_executable($file)),
-						'content' => GeneralUtility::getUrl(
-								$file
-							)
-					);
+                    if (
+                        version_compare(TYPO3_version, '9.5.0', '>=')
+                    ) {
+                        $uploadArray['FILES'][$relFileName] = array(
+                            'name' => $relFileName,
+    //                      'size' => filesize($file),
+                            'mtime' => filemtime($file),
+                            'is_executable' => (\TYPO3\CMS\Core\Core\Environment::isWindows() ? 0 : is_executable($file)),
+                            'content' => GeneralUtility::getUrl(
+                                    $file
+                                )
+                        );
+                    } else {
+                        $uploadArray['FILES'][$relFileName] = array(
+                            'name' => $relFileName,
+    //                      'size' => filesize($file),
+                            'mtime' => filemtime($file),
+                            'is_executable' => (TYPO3_OS == 'WIN' ? 0 : is_executable($file)),
+                            'content' => GeneralUtility::getUrl(
+                                $file
+                            )
+                        );
+                    }
 
 					if (
 						$hookVar &&

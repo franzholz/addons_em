@@ -13,10 +13,10 @@ $EM_CONF[$_EXTKEY] = array(
     'state' => 'stable',
     'clearCacheOnLoad' => 0,
     'author_company' => '',
-    'version' => '0.3.0',
+    'version' => '0.3.1',
     'constraints' => array(
         'depends' => array(
-            'typo3' => '9.5.0-10.4.99',
+            'typo3' => '8.7.0-10.4.99',
         ),
         'conflicts' => array(
         ),
