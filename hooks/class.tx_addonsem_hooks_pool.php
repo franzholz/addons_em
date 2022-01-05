@@ -29,8 +29,6 @@
  *
  * hook functions for the pool extension
  *
- * $Id: class.tx_addonsem_hooks_pool.php 323 2015-12-03 11:27:01Z franzholz $
- *
  * @author	Franz Holzinger <franz@ttproducts.de>
  * @maintainer	Franz Holzinger <franz@ttproducts.de>
  * @package TYPO3
@@ -44,8 +42,8 @@
 class tx_addonsem_hooks_pool extends tx_pool_hooks_base {
 	public $extKey = 'addons_em';
 	public $prefixId = 'tx_addonsem_hooks_pool';	// Same as class name
-	public $LLFileArray = array ('hooks/locallang_pool.xml');
-	public $modMenu = array('function' => array('generate'));
+	public $LLFileArray = ['hooks/locallang_pool.xml'];
+	public $modMenu = ['function' => ['generate']];
 	public $headerText = 'header_generate';
 
 // Todo:  typo3/sysext/t3skin/images/icons/actions/system-extension-download.png
@@ -54,7 +52,7 @@ class tx_addonsem_hooks_pool extends tx_pool_hooks_base {
 		$errorText = FALSE;
 		$postVar = 'CMD';
 		$cmdData = t3lib_div::_GP($postVar);
-		$config = array();
+		$config = [];
 		$data = t3lib_div::_GP($this->prefixId);
 		$config['extKey'] = 'tt_products';
 		$config['version'] = '2.7.2';

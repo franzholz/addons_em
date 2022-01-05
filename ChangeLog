@@ -1,5 +1,6 @@
 
 2022-01-05 Franz Holzinger  <franz@ttproducts.de>
+    * compatible with TYPO3 11.5
     * remove deprecated file class.tx_addonsem_tca_div.php
 
 2021-06-24 Franz Holzinger  <franz@ttproducts.de>

@@ -49,7 +49,7 @@ class tx_addonsem_file_div {
 	 * @param	string		Absolute path to locallang file to include.
 	 * @param	string		Old content of a locallang file (keeping the header content)
 	 * @return	array		Array with header/content as key 0/1
-	 * @see makeUploadarray()
+	 * @see makeUploadArray
 	 */
 	static public function getSerializedLocalLang ($file, $content)
 	{
@@ -61,7 +61,7 @@ class tx_addonsem_file_div {
 			$returnParts[1] = serialize($LOCAL_LANG);
 			return $returnParts;
 		} else {
-			return array();
+			return [];
 		}
 	}
 
@@ -71,7 +71,7 @@ class tx_addonsem_file_div {
 	 * @param	array		Array containing extension
 	 * @return	string		Content stream
 	 */
-	static public function makeUploadDataFromarray ($uploadArray)
+	static public function makeUploadDataFromArray ($uploadArray)
 	{
 		$content = '';
 		if (is_array($uploadArray)) {
@@ -92,7 +92,7 @@ class tx_addonsem_file_div {
 	 * @param	array		Extension information array
 	 * @return	mixed		Returns array with extension upload array on success, otherwise an error string.
 	 */
-	static function makeUploadarray ($extKey, $extPath, $conf, $orderRow, $variantVars)
+	static function makeUploadArray ($extKey, $extPath, $conf, $orderRow, $variantVars)
 	{
 		$result = false;
 		$hookVar = 'file';
@@ -100,7 +100,7 @@ class tx_addonsem_file_div {
 		if ($extKey != '' && $extPath != '' && is_array($conf)) {
 
 			// Get files for extension:
-			$fileArray = array();
+			$fileArray = [];
 			$fileArray =
 				GeneralUtility::getAllFilesAndFoldersInPath(
 					$fileArray,
@@ -111,7 +111,7 @@ class tx_addonsem_file_div {
 					$GLOBALS['TYPO3_CONF_VARS']['EXT']['excludeForPackaging']
 				);
 
-			$generatedFilenames = array();
+			$generatedFilenames = [];
 			$generatedFilenames[] = 'ext_emconf.php';
 
 			if (
@@ -139,7 +139,7 @@ class tx_addonsem_file_div {
 			}
 
 			// Initialize output array:
-			$uploadArray = array();
+			$uploadArray = [];
 			$uploadArray['extKey'] = $extKey;
 			$uploadArray['EM_CONF'] = $conf;
 			$uploadArray['misc']['codelines'] = 0;
@@ -152,29 +152,15 @@ class tx_addonsem_file_div {
 
 				if (!in_array($relFileName, $generatedFilenames)) { // This file should be dynamically written...
 
-                    if (
-                        version_compare(TYPO3_version, '9.5.0', '>=')
-                    ) {
-                        $uploadArray['FILES'][$relFileName] = array(
-                            'name' => $relFileName,
-    //                      'size' => filesize($file),
-                            'mtime' => filemtime($file),
-                            'is_executable' => (\TYPO3\CMS\Core\Core\Environment::isWindows() ? 0 : is_executable($file)),
-                            'content' => GeneralUtility::getUrl(
-                                    $file
-                                )
-                        );
-                    } else {
-                        $uploadArray['FILES'][$relFileName] = array(
-                            'name' => $relFileName,
-    //                      'size' => filesize($file),
-                            'mtime' => filemtime($file),
-                            'is_executable' => (TYPO3_OS == 'WIN' ? 0 : is_executable($file)),
-                            'content' => GeneralUtility::getUrl(
+                    $uploadArray['FILES'][$relFileName] = [
+                        'name' => $relFileName,
+//                      'size' => filesize($file),
+                        'mtime' => filemtime($file),
+                        'is_executable' => (\TYPO3\CMS\Core\Core\Environment::isWindows() ? 0 : is_executable($file)),
+                        'content' => GeneralUtility::getUrl(
                                 $file
                             )
-                        );
-                    }
+                    ];
 
 					if (
 						$hookVar &&
@@ -205,7 +191,7 @@ class tx_addonsem_file_div {
 						$uploadArray['misc']['codelines'] += $uploadArray['FILES'][$relFileName]['codelines'];
 						$uploadArray['misc']['codebytes'] += $uploadArray['FILES'][$relFileName]['size'];
 
-						// locallang*.php files:
+						// locallang*.xlf files:
 						if (
 							substr($fI['basename'], 0, 9) == 'locallang' &&
 							strstr($uploadArray['FILES'][$relFileName]['content'], '$LOCAL_LANG')
@@ -273,7 +259,7 @@ class tx_addonsem_file_div {
 	{
 		$result = false;
 		$uArr =
-			self::makeUploadarray(
+			self::makeUploadArray(
 				$extKey,
 				$path,
 				$extInfo,
@@ -282,7 +268,7 @@ class tx_addonsem_file_div {
 			);
 
 		if (is_array($uArr)) {
-			$backUpData = self::makeUploadDataFromarray($uArr);
+			$backUpData = self::makeUploadDataFromArray($uArr);
 			$time = filemtime($path);
 			$filename = 'T3X_' . $extKey . '-' . str_replace('.', '_', $extInfo['version']) . '-z-' . date('YmdHi', $time) . '.t3x';
 
