@@ -1,3 +1,5 @@
+2022-01-11 Franz Holzinger  <franz@ttproducts.de>
+    * It works also with PHP 8
 
 2022-01-05 Franz Holzinger  <franz@ttproducts.de>
     * compatible with TYPO3 11.5
