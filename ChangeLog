@@ -1,3 +1,6 @@
+2022-01-14 Franz Holzinger  <franz@ttproducts.de>
+    * Remove the hook class.tx_addonsem_hooks_pool.php
+
 2022-01-11 Franz Holzinger  <franz@ttproducts.de>
     * It works also with PHP 8
 
