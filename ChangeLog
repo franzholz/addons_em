@@ -1,3 +1,7 @@
+2022-01-20 Franz Holzinger  <franz@ttproducts.de>
+    * new feature: XCLASS for \TYPO3\CMS\Core\Database\Schema\SchemaMigrator in order to support 
+      UPDATE changes in the files ext_tables_static+adt.sql of the extensions static_info_tables_xx .
+
 2022-01-14 Franz Holzinger  <franz@ttproducts.de>
     * Remove the hook class.tx_addonsem_hooks_pool.php
 
