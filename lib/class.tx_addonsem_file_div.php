@@ -44,6 +44,8 @@ use \TYPO3\CMS\Core\Utility\GeneralUtility;
 class tx_addonsem_file_div {
 
 	/**
+	 * deprecated
+	 * use the FileHandlingApi instead
 	 * Include a locallang file and return the $LOCAL_LANG array serialized.
 	 *
 	 * @param	string		Absolute path to locallang file to include.
@@ -66,6 +68,8 @@ class tx_addonsem_file_div {
 	}
 
 	/**
+	 * deprecated
+	 * use the FileHandlingApi instead
 	 * Encodes extension upload array
 	 *
 	 * @param	array		Array containing extension
@@ -86,13 +90,24 @@ class tx_addonsem_file_div {
 	}
 
 	/**
+	 * deprecated
+	 * use the FileHandlingApi instead
 	 * Make upload array out of extension
 	 *
 	 * @param	string		Extension key
+	 * @param	string		Path to extension
 	 * @param	array		Extension information array
+	 * @param	array		Order record
+	 * @param	array		Variant piVars
 	 * @return	mixed		Returns array with extension upload array on success, otherwise an error string.
 	 */
-	static function makeUploadArray ($extKey, $extPath, $conf, $orderRow, $variantVars)
+	static function makeUploadArray (
+        $extKey, 
+        $extPath, 
+        $conf, 
+        $orderRow,
+        $variantVars
+    )
 	{
 		$result = false;
 		$hookVar = 'file';
@@ -116,7 +131,8 @@ class tx_addonsem_file_div {
 
 			if (
 				$hookVar &&
-				is_array ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
+				isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar]) &&
+				is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
 			) {
 				foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar] as $classRef) {
 					$hookObj = GeneralUtility::getUserObj(
@@ -164,7 +180,8 @@ class tx_addonsem_file_div {
 
 					if (
 						$hookVar &&
-						is_array ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
+						isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar]) &&
+						is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
 					) {
 						foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar] as $classRef) {
 							$hookObj = GeneralUtility::getUserObj(
@@ -184,7 +201,9 @@ class tx_addonsem_file_div {
 						}
 					}
 
-					if (GeneralUtility::inList('php,inc', strtolower($fI['extension']))) {
+					if (
+                        GeneralUtility::inList('php,inc', strtolower($fI['extension']))
+                    ) {
 						$uploadArray['FILES'][$relFileName]['codelines'] = count(explode(LF, $uploadArray['FILES'][$relFileName]['content']));
 
 						$uploadArray['FILES'][$relFileName]['size'] = strlen($uploadArray['FILES'][$relFileName]['content']);
@@ -210,7 +229,8 @@ class tx_addonsem_file_div {
 
 			if (
 				$hookVar &&
-				is_array ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
+				isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar]) &&
+				is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
 			) {
 				foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar] as $classRef) {
 					$hookObj = GeneralUtility::getUserObj(
@@ -249,13 +269,24 @@ class tx_addonsem_file_div {
 	}
 
 	/**
+	 * deprecated
+	 * use the FileHandlingApi instead
 	 * Download extension as file / make backup
 	 *
 	 * @param	string		Extension key
+	 * @param	string		Path to extension
 	 * @param	array		Extension information array
+	 * @param	array		Order record
+	 * @param	array		Variant piVars
 	 * @return	void		EXIT from PHP
 	 */
-	static public function extBackup ($extKey, $path, $extInfo, $orderRow, $variantVars)
+	static public function extBackup (
+        $extKey,
+        $path,
+        $extInfo,
+        $orderRow,
+        $variantVars
+    )
 	{
 		$result = false;
 		$uArr =
