@@ -43,7 +43,7 @@ class SchemaMigrator extends \TYPO3\CMS\Core\Database\Schema\SchemaMigrator
      * @param bool $truncate
      * @return array
      */
-    public function importStaticData(array $statements, bool $truncate = false): array
+    public function importStaticData (array $statements, bool $truncate = false): array
     {
         $result = [];
         $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
