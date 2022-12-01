@@ -1,6 +1,10 @@
+2022-12-01 Franz Holzinger  <franz@ttproducts.de>
+    * bugfix issue #2: Migrate extension icon to Resources/Public/Icons/Extension.gif
+
 2022-10-05 Franz Holzinger  <franz@ttproducts.de>
     * new feature: class FileHandlingApi with methods taken from extensionmanager \TYPO3\CMS\Extensionmanager\Utility\FileHandlingUtility
  to generate an extension ZIP file and download it via the browser
+ 
 2022-01-20 Franz Holzinger  <franz@ttproducts.de>
     * bugfix issue #1: rename namespace XClass ==> Xclass
 
