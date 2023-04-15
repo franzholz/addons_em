@@ -1,3 +1,6 @@
+2023-04-15 Franz Holzinger  <franz@ttproducts.de>
+    * compatible with TYPO3 12.3
+
 2022-12-01 Franz Holzinger  <franz@ttproducts.de>
     * bugfix issue #2: Migrate extension icon to Resources/Public/Icons/Extension.gif
 
