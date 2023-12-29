@@ -87,7 +87,7 @@ class FileHandlingApi
             isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
         ) {
             foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar] as $classRef) {
-                $hookObj = GeneralUtility::getUserObj(
+                $hookObj = GeneralUtility::makeInstance(
                     $classRef
                 );
 
@@ -116,7 +116,7 @@ class FileHandlingApi
                 is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
             ) {
                 foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar] as $classRef) {
-                    $hookObj = GeneralUtility::getUserObj(
+                    $hookObj = GeneralUtility::makeInstance(
                         $classRef
                     );
 

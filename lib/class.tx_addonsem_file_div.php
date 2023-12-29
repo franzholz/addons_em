@@ -132,7 +132,7 @@ class tx_addonsem_file_div
                 is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
             ) {
                 foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar] as $classRef) {
-                    $hookObj = GeneralUtility::getUserObj(
+                    $hookObj = GeneralUtility::makeInstance(
                         $classRef
                     );
 
@@ -181,7 +181,7 @@ class tx_addonsem_file_div
                         is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
                     ) {
                         foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar] as $classRef) {
-                            $hookObj = GeneralUtility::getUserObj(
+                            $hookObj = GeneralUtility::makeInstance(
                                 $classRef
                             );
                             if (method_exists($hookObj, 'modifyFile')) {
@@ -230,7 +230,7 @@ class tx_addonsem_file_div
                 is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
             ) {
                 foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar] as $classRef) {
-                    $hookObj = GeneralUtility::getUserObj(
+                    $hookObj = GeneralUtility::makeInstance(
                         $classRef
                     );
 
@@ -330,7 +330,7 @@ class tx_addonsem_file_div
      */
     public static function writeLocalconfValue($extKey, $newValue, $updateIdentity): bool
     {
-        GeneralUtility::logDeprecatedFunction();
+        trigger_error('A useful message', E_USER_DEPRECATED);
         return false;
     }
 }
