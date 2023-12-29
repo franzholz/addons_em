@@ -26,29 +26,27 @@ use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Resource\ResourceFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-
-
-class FileHandlingApi {
+class FileHandlingApi
+{
     use LoggerAwareTrait;
 
     /**
      * Create a zip file from an extension
      *
-	 * @param	string		Extension key
-	 * @param	string		Path to extension
-	 * @param	array		Extension information array
-	 * @param	array		Order record
-	 * @param	array		Variant piVars
+     * @param	string		Extension key
+     * @param	string		Path to extension
+     * @param	array		Extension information array
+     * @param	array		Order record
+     * @param	array		Variant piVars
      * @return string Name and path of create zip file
      */
-    public function createZipFileFromExtension (
-        $extensionKey, 
-        $extensionPath, 
-        array $conf, 
+    public function createZipFileFromExtension(
+        $extensionKey,
+        $extensionPath,
+        array $conf,
         array $orderRow,
         array $variantVars
-    )
-    {
+    ) {
         $hookVar = 'file';
         $version = $conf['version'] ?? '';
         if (empty($version)) {
@@ -97,13 +95,13 @@ class FileHandlingApi {
 
                     $result =
                         $hookObj->getGeneratedFilenames(
-                            $extensionKey, 
-                            $extensionPath, 
+                            $extensionKey,
+                            $extensionPath,
                             $conf,
                             $orderRow,
                             $variantVars,
                             $generatedFilenames
-                    );
+                        );
                 }
             }
         }
@@ -115,7 +113,7 @@ class FileHandlingApi {
 
             if (
                 $hookVar &&
-                is_array ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
+                is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
             ) {
                 foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar] as $classRef) {
                     $hookObj = GeneralUtility::getUserObj(
@@ -166,7 +164,7 @@ class FileHandlingApi {
      * @param string $fileName
      * @param string $downloadName
      */
-    public function sendZipFileToBrowserAndDelete ($fileName, $downloadName = '')
+    public function sendZipFileToBrowserAndDelete($fileName, $downloadName = '')
     {
         if ($downloadName === '') {
             $downloadName = PathUtility::basename($fileName);
@@ -179,5 +177,3 @@ class FileHandlingApi {
         die;
     }
 }
-
-

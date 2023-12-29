@@ -1,3 +1,6 @@
+2023-12-29 Franz Holzinger  <franz@ttproducts.de>
+    * use rector to improve the PHP code
+
 2023-04-15 Franz Holzinger  <franz@ttproducts.de>
     * compatible with TYPO3 12.3
 

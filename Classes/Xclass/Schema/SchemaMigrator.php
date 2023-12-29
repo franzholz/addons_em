@@ -17,7 +17,6 @@ declare(strict_types=1);
 
 namespace JambageCom\AddonsEm\Xclass\Schema;
 
-
 use Doctrine\DBAL\Exception as DBALException;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\SchemaDiff;
@@ -35,7 +34,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class SchemaMigrator extends \TYPO3\CMS\Core\Database\Schema\SchemaMigrator
 {
-
     /**
      * Import static data (UPDATE and INSERT statements)
      *
@@ -43,7 +41,7 @@ class SchemaMigrator extends \TYPO3\CMS\Core\Database\Schema\SchemaMigrator
      * @param bool $truncate
      * @return array
      */
-    public function importStaticData (array $statements, bool $truncate = false): array
+    public function importStaticData(array $statements, bool $truncate = false): array
     {
         $result = [];
         $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
@@ -81,4 +79,3 @@ class SchemaMigrator extends \TYPO3\CMS\Core\Database\Schema\SchemaMigrator
         return $result;
     }
 }
-

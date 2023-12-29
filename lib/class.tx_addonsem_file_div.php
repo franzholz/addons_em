@@ -37,136 +37,133 @@
  *
  */
 
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
+class tx_addonsem_file_div
+{
+    /**
+     * deprecated
+     * use the FileHandlingApi instead
+     * Include a locallang file and return the $LOCAL_LANG array serialized.
+     *
+     * @param	string		Absolute path to locallang file to include.
+     * @param	string		Old content of a locallang file (keeping the header content)
+     * @return	array		Array with header/content as key 0/1
+     * @see makeUploadArray
+     */
+    public static function getSerializedLocalLang($file, $content)
+    {
+        $LOCAL_LANG = null;
+        $returnParts = explode('$LOCAL_LANG', $content, 2);
 
+        include($file);
+        if (is_array($LOCAL_LANG)) {
+            $returnParts[1] = serialize($LOCAL_LANG);
+            return $returnParts;
+        } else {
+            return [];
+        }
+    }
 
-class tx_addonsem_file_div {
+    /**
+     * deprecated
+     * use the FileHandlingApi instead
+     * Encodes extension upload array
+     *
+     * @param	array		Array containing extension
+     * @return	string		Content stream
+     */
+    public static function makeUploadDataFromArray($uploadArray)
+    {
+        $content = '';
+        if (is_array($uploadArray)) {
+            $serialized = serialize($uploadArray);
+            $md5 = md5($serialized);
 
-	/**
-	 * deprecated
-	 * use the FileHandlingApi instead
-	 * Include a locallang file and return the $LOCAL_LANG array serialized.
-	 *
-	 * @param	string		Absolute path to locallang file to include.
-	 * @param	string		Old content of a locallang file (keeping the header content)
-	 * @return	array		Array with header/content as key 0/1
-	 * @see makeUploadArray
-	 */
-	static public function getSerializedLocalLang ($file, $content)
-	{
-		$LOCAL_LANG = null;
-		$returnParts = explode('$LOCAL_LANG', $content, 2);
+            $content = $md5 . ':';
+            $content .= 'gzcompress:';
+            $content .= gzcompress($serialized);
+        }
+        return $content;
+    }
 
-		include($file);
-		if (is_array($LOCAL_LANG)) {
-			$returnParts[1] = serialize($LOCAL_LANG);
-			return $returnParts;
-		} else {
-			return [];
-		}
-	}
-
-	/**
-	 * deprecated
-	 * use the FileHandlingApi instead
-	 * Encodes extension upload array
-	 *
-	 * @param	array		Array containing extension
-	 * @return	string		Content stream
-	 */
-	static public function makeUploadDataFromArray ($uploadArray)
-	{
-		$content = '';
-		if (is_array($uploadArray)) {
-			$serialized = serialize($uploadArray);
-			$md5 = md5($serialized);
-
-			$content = $md5 . ':';
-			$content .= 'gzcompress:';
-			$content .= gzcompress($serialized);
-		}
-		return $content;
-	}
-
-	/**
-	 * deprecated
-	 * use the FileHandlingApi instead
-	 * Make upload array out of extension
-	 *
-	 * @param	string		Extension key
-	 * @param	string		Path to extension
-	 * @param	array		Extension information array
-	 * @param	array		Order record
-	 * @param	array		Variant piVars
-	 * @return	mixed		Returns array with extension upload array on success, otherwise an error string.
-	 */
-	static function makeUploadArray (
-        $extKey, 
-        $extPath, 
-        $conf, 
+    /**
+     * deprecated
+     * use the FileHandlingApi instead
+     * Make upload array out of extension
+     *
+     * @param	string		Extension key
+     * @param	string		Path to extension
+     * @param	array		Extension information array
+     * @param	array		Order record
+     * @param	array		Variant piVars
+     * @return	mixed		Returns array with extension upload array on success, otherwise an error string.
+     */
+    public static function makeUploadArray(
+        $extKey,
+        $extPath,
+        $conf,
         $orderRow,
         $variantVars
-    )
-	{
-		$result = false;
-		$hookVar = 'file';
+    ) {
+        $result = false;
+        $hookVar = 'file';
 
-		if ($extKey != '' && $extPath != '' && is_array($conf)) {
+        if ($extKey != '' && $extPath != '' && is_array($conf)) {
 
-			// Get files for extension:
-			$fileArray = [];
-			$fileArray =
-				GeneralUtility::getAllFilesAndFoldersInPath(
-					$fileArray,
-					$extPath,
-					'',
-					0,
-					99,
-					$GLOBALS['TYPO3_CONF_VARS']['EXT']['excludeForPackaging']
-				);
+            // Get files for extension:
+            $fileArray = [];
+            $fileArray =
+                GeneralUtility::getAllFilesAndFoldersInPath(
+                    $fileArray,
+                    $extPath,
+                    '',
+                    0,
+                    99,
+                    $GLOBALS['TYPO3_CONF_VARS']['EXT']['excludeForPackaging']
+                );
 
-			$generatedFilenames = [];
-			$generatedFilenames[] = 'ext_emconf.php';
+            $generatedFilenames = [];
+            $generatedFilenames[] = 'ext_emconf.php';
 
-			if (
-				$hookVar &&
-				isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar]) &&
-				is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
-			) {
-				foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar] as $classRef) {
-					$hookObj = GeneralUtility::getUserObj(
-						$classRef
-					);
+            if (
+                $hookVar &&
+                isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar]) &&
+                is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
+            ) {
+                foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar] as $classRef) {
+                    $hookObj = GeneralUtility::getUserObj(
+                        $classRef
+                    );
 
-					if (method_exists($hookObj, 'getGeneratedFilenames')) {
+                    if (method_exists($hookObj, 'getGeneratedFilenames')) {
 
-						$result =
-							$hookObj->getGeneratedFilenames(
-								$extKey,
-								$extPath,
-								$conf,
-								$orderRow,
-								$variantVars,
-								$generatedFilenames
-						);
-					}
-				}
-			}
+                        $result =
+                            $hookObj->getGeneratedFilenames(
+                                $extKey,
+                                $extPath,
+                                $conf,
+                                $orderRow,
+                                $variantVars,
+                                $generatedFilenames
+                            );
+                    }
+                }
+            }
 
-			// Initialize output array:
-			$uploadArray = [];
-			$uploadArray['extKey'] = $extKey;
-			$uploadArray['EM_CONF'] = $conf;
-			$uploadArray['misc']['codelines'] = 0;
-			$uploadArray['misc']['codebytes'] = 0;
+            // Initialize output array:
+            $uploadArray = [];
+            $uploadArray['extKey'] = $extKey;
+            $uploadArray['EM_CONF'] = $conf;
+            $uploadArray['misc']['codelines'] = 0;
+            $uploadArray['misc']['codebytes'] = 0;
 
-			// Read all files:
-			foreach ($fileArray as $file) {
-				$relFileName = substr($file, strlen($extPath));
-				$fI = pathinfo($relFileName);
+            // Read all files:
+            foreach ($fileArray as $file) {
+                $relFileName = substr($file, strlen($extPath));
+                $fI = pathinfo($relFileName);
 
-				if (!in_array($relFileName, $generatedFilenames)) { // This file should be dynamically written...
+                if (!in_array($relFileName, $generatedFilenames)) { // This file should be dynamically written...
 
                     $uploadArray['FILES'][$relFileName] = [
                         'name' => $relFileName,
@@ -174,166 +171,166 @@ class tx_addonsem_file_div {
                         'mtime' => filemtime($file),
                         'is_executable' => (\TYPO3\CMS\Core\Core\Environment::isWindows() ? 0 : is_executable($file)),
                         'content' => GeneralUtility::getUrl(
-                                $file
-                            )
+                            $file
+                        )
                     ];
 
-					if (
-						$hookVar &&
-						isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar]) &&
-						is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
-					) {
-						foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar] as $classRef) {
-							$hookObj = GeneralUtility::getUserObj(
-								$classRef
-							);
-							if (method_exists($hookObj, 'modifyFile')) {
-								$result =
-									$hookObj->modifyFile(
-										$file,
-										$orderRow,
-										$variantVars,
-										$extKey,
-										$conf,
-										$uploadArray['FILES'][$relFileName]
-									);
-							}
-						}
-					}
+                    if (
+                        $hookVar &&
+                        isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar]) &&
+                        is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
+                    ) {
+                        foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar] as $classRef) {
+                            $hookObj = GeneralUtility::getUserObj(
+                                $classRef
+                            );
+                            if (method_exists($hookObj, 'modifyFile')) {
+                                $result =
+                                    $hookObj->modifyFile(
+                                        $file,
+                                        $orderRow,
+                                        $variantVars,
+                                        $extKey,
+                                        $conf,
+                                        $uploadArray['FILES'][$relFileName]
+                                    );
+                            }
+                        }
+                    }
 
-					if (
+                    if (
                         GeneralUtility::inList('php,inc', strtolower($fI['extension']))
                     ) {
-						$uploadArray['FILES'][$relFileName]['codelines'] = count(explode(LF, $uploadArray['FILES'][$relFileName]['content']));
+                        $uploadArray['FILES'][$relFileName]['codelines'] = count(explode(LF, $uploadArray['FILES'][$relFileName]['content']));
 
-						$uploadArray['FILES'][$relFileName]['size'] = strlen($uploadArray['FILES'][$relFileName]['content']);
-						$uploadArray['misc']['codelines'] += $uploadArray['FILES'][$relFileName]['codelines'];
-						$uploadArray['misc']['codebytes'] += $uploadArray['FILES'][$relFileName]['size'];
+                        $uploadArray['FILES'][$relFileName]['size'] = strlen($uploadArray['FILES'][$relFileName]['content']);
+                        $uploadArray['misc']['codelines'] += $uploadArray['FILES'][$relFileName]['codelines'];
+                        $uploadArray['misc']['codebytes'] += $uploadArray['FILES'][$relFileName]['size'];
 
-						// locallang*.xlf files:
-						if (
-							substr($fI['basename'], 0, 9) == 'locallang' &&
-							strstr($uploadArray['FILES'][$relFileName]['content'], '$LOCAL_LANG')
-						) {
-							$uploadArray['FILES'][$relFileName]['LOCAL_LANG'] =
-								self::getSerializedLocalLang(
-									$file,
-									$uploadArray['FILES'][$relFileName]['content']
-								);
-						}
-					}
+                        // locallang*.xlf files:
+                        if (
+                            substr($fI['basename'], 0, 9) == 'locallang' &&
+                            strstr($uploadArray['FILES'][$relFileName]['content'], '$LOCAL_LANG')
+                        ) {
+                            $uploadArray['FILES'][$relFileName]['LOCAL_LANG'] =
+                                self::getSerializedLocalLang(
+                                    $file,
+                                    $uploadArray['FILES'][$relFileName]['content']
+                                );
+                        }
+                    }
 
-					$uploadArray['FILES'][$relFileName]['content_md5'] = md5($uploadArray['FILES'][$relFileName]['content']);
-				}
-			}
+                    $uploadArray['FILES'][$relFileName]['content_md5'] = md5($uploadArray['FILES'][$relFileName]['content']);
+                }
+            }
 
-			if (
-				$hookVar &&
-				isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar]) &&
-				is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
-			) {
-				foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar] as $classRef) {
-					$hookObj = GeneralUtility::getUserObj(
-						$classRef
-					);
+            if (
+                $hookVar &&
+                isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar]) &&
+                is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
+            ) {
+                foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar] as $classRef) {
+                    $hookObj = GeneralUtility::getUserObj(
+                        $classRef
+                    );
 
-					if (method_exists($hookObj, 'addFile')) {
-						$result =
-							$hookObj->addFile(
-								$extKey,
-								$extPath,
-								$conf,
-								$fileArray,
-								$orderRow,
-								$variantVars,
-								$uploadArray
-						);
-					}
-				}
-			}
+                    if (method_exists($hookObj, 'addFile')) {
+                        $result =
+                            $hookObj->addFile(
+                                $extKey,
+                                $extPath,
+                                $conf,
+                                $fileArray,
+                                $orderRow,
+                                $variantVars,
+                                $uploadArray
+                            );
+                    }
+                }
+            }
 
-			// Return upload-array:
-			$result = $uploadArray;
-		} else {
-			$LANG = $GLOBALS['LANG'];
-			if (!is_object($LANG)) {
-				$LANG = GeneralUtility::makeInstance(
-						'language'
-					);
-				$LANG->init($GLOBALS['TSFE']->tmpl->setup['config.']['language']);
-			}
-			$result = sprintf($LANG->getLL('makeUploadArray_error_path'),
-				$extKey);
-		}
-		return $result;
-	}
+            // Return upload-array:
+            $result = $uploadArray;
+        } else {
+            $LANG = $GLOBALS['LANG'];
+            if (!is_object($LANG)) {
+                $LANG = GeneralUtility::makeInstance(
+                    'language'
+                );
+                $LANG->init($GLOBALS['TSFE']->tmpl->setup['config.']['language']);
+            }
+            $result = sprintf(
+                $LANG->getLL('makeUploadArray_error_path'),
+                $extKey
+            );
+        }
+        return $result;
+    }
 
-	/**
-	 * deprecated
-	 * use the FileHandlingApi instead
-	 * Download extension as file / make backup
-	 *
-	 * @param	string		Extension key
-	 * @param	string		Path to extension
-	 * @param	array		Extension information array
-	 * @param	array		Order record
-	 * @param	array		Variant piVars
-	 * @return	void		EXIT from PHP
-	 */
-	static public function extBackup (
+    /**
+     * deprecated
+     * use the FileHandlingApi instead
+     * Download extension as file / make backup
+     *
+     * @param	string		Extension key
+     * @param	string		Path to extension
+     * @param	array		Extension information array
+     * @param	array		Order record
+     * @param	array		Variant piVars
+     * @return	void		EXIT from PHP
+     */
+    public static function extBackup(
         $extKey,
         $path,
         $extInfo,
         $orderRow,
         $variantVars
-    )
-	{
-		$result = false;
-		$uArr =
-			self::makeUploadArray(
-				$extKey,
-				$path,
-				$extInfo,
-				$orderRow,
-				$variantVars
-			);
+    ) {
+        $result = false;
+        $uArr =
+            self::makeUploadArray(
+                $extKey,
+                $path,
+                $extInfo,
+                $orderRow,
+                $variantVars
+            );
 
-		if (is_array($uArr)) {
-			$backUpData = self::makeUploadDataFromArray($uArr);
-			$time = filemtime($path);
-			$filename = 'T3X_' . $extKey . '-' . str_replace('.', '_', $extInfo['version']) . '-z-' . date('YmdHi', $time) . '.t3x';
+        if (is_array($uArr)) {
+            $backUpData = self::makeUploadDataFromArray($uArr);
+            $time = filemtime($path);
+            $filename = 'T3X_' . $extKey . '-' . str_replace('.', '_', $extInfo['version']) . '-z-' . date('YmdHi', $time) . '.t3x';
 
-			ob_end_clean();
-			header('Content-Type: application/octet-stream');
-			header('Content-Disposition: attachment; filename=' . $filename);
-			echo $backUpData;
-			exit;
-		} else {
-			$LANG = $GLOBALS['LANG'];
-			if (!is_object($LANG)) {
-				$LANG = GeneralUtility::makeInstance(
-						'language'
-					);
-				$LANG->init($GLOBALS['TSFE']->tmpl->setup['config.']['language']);
-			}
-			throw new RuntimeException(
-				'TYPO3 Fatal Error: ' . $LANG->getLL('extBackup_unexpected_error'),
-				1270853981
-			);
-		}
-	}
+            ob_end_clean();
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename=' . $filename);
+            echo $backUpData;
+            exit;
+        } else {
+            $LANG = $GLOBALS['LANG'];
+            if (!is_object($LANG)) {
+                $LANG = GeneralUtility::makeInstance(
+                    'language'
+                );
+                $LANG->init($GLOBALS['TSFE']->tmpl->setup['config.']['language']);
+            }
+            throw new RuntimeException(
+                'TYPO3 Fatal Error: ' . $LANG->getLL('extBackup_unexpected_error'),
+                1270853981
+            );
+        }
+    }
 
-	/**
-	 * Writes the extension list to "localconf.php" file
-	 * Removes the temp_CACHED* files before return.
-	 *
-	 * @param	string		List of extensions
-	 * @return	void
-	 */
-	static public function writeLocalconfValue ($extKey, $newValue, $updateIdentity)
-	{
-		\TYPO3\CMS\Core\Utility\GeneralUtility::logDeprecatedFunction();
-		return false;
-	}
+    /**
+     * Writes the extension list to "localconf.php" file
+     * Removes the temp_CACHED* files before return.
+     *
+     * @param	string		List of extensions
+     * @return	void
+     */
+    public static function writeLocalconfValue($extKey, $newValue, $updateIdentity)
+    {
+        \TYPO3\CMS\Core\Utility\GeneralUtility::logDeprecatedFunction();
+        return false;
+    }
 }
-

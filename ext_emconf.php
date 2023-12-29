@@ -13,7 +13,7 @@ $EM_CONF[$_EXTKEY] = [
     'state' => 'stable',
     'clearCacheOnLoad' => 0,
     'author_company' => '',
-    'version' => '0.8.2',
+    'version' => '0.9.0',
     'constraints' => [
         'depends' => [
             'typo3' => '11.5.0-12.4.99',
@@ -24,4 +24,3 @@ $EM_CONF[$_EXTKEY] = [
         ],
     ],
 ];
-
