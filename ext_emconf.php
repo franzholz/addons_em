@@ -11,7 +11,6 @@ $EM_CONF[$_EXTKEY] = [
     'author' => 'Franz Holzinger',
     'author_email' => 'franz@ttproducts.de',
     'state' => 'stable',
-    'clearCacheOnLoad' => 0,
     'author_company' => '',
     'version' => '0.9.0',
     'constraints' => [
