@@ -36,7 +36,7 @@
  *
  *
  */
-
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class tx_addonsem_file_div
@@ -169,7 +169,7 @@ class tx_addonsem_file_div
                         'name' => $relFileName,
 //                      'size' => filesize($file),
                         'mtime' => filemtime($file),
-                        'is_executable' => (\TYPO3\CMS\Core\Core\Environment::isWindows() ? 0 : is_executable($file)),
+                        'is_executable' => (Environment::isWindows() ? 0 : is_executable($file)),
                         'content' => GeneralUtility::getUrl(
                             $file
                         )
@@ -330,7 +330,7 @@ class tx_addonsem_file_div
      */
     public static function writeLocalconfValue($extKey, $newValue, $updateIdentity)
     {
-        \TYPO3\CMS\Core\Utility\GeneralUtility::logDeprecatedFunction();
+        GeneralUtility::logDeprecatedFunction();
         return false;
     }
 }
