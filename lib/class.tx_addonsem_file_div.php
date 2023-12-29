@@ -328,7 +328,7 @@ class tx_addonsem_file_div
      * @param	string		List of extensions
      * @return	void
      */
-    public static function writeLocalconfValue($extKey, $newValue, $updateIdentity)
+    public static function writeLocalconfValue($extKey, $newValue, $updateIdentity): bool
     {
         GeneralUtility::logDeprecatedFunction();
         return false;
