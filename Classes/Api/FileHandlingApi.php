@@ -164,7 +164,7 @@ class FileHandlingApi
      * @param string $fileName
      * @param string $downloadName
      */
-    public function sendZipFileToBrowserAndDelete($fileName, $downloadName = '')
+    public function sendZipFileToBrowserAndDelete($fileName, $downloadName = ''): void
     {
         if ($downloadName === '') {
             $downloadName = PathUtility::basename($fileName);

@@ -285,7 +285,7 @@ class tx_addonsem_file_div
         $extInfo,
         $orderRow,
         $variantVars
-    ) {
+    ): void {
         $result = false;
         $uArr =
             self::makeUploadArray(
