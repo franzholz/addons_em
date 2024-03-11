@@ -84,7 +84,8 @@ class FileHandlingApi
 
         if (
             $hookVar &&
-            isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
+            isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar]) &&
+            is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
         ) {
             foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar] as $classRef) {
                 $hookObj = GeneralUtility::makeInstance(
@@ -113,6 +114,7 @@ class FileHandlingApi
 
             if (
                 $hookVar &&
+                isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar]) &&
                 is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar])
             ) {
                 foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['addons_em'][$hookVar] as $classRef) {
