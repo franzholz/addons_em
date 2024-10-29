@@ -1,3 +1,6 @@
+2024-10-29 Franz Holzinger  <franz@ttproducts.de>
+    * compatible with TYPO3 13.4
+
 2023-12-29 Franz Holzinger  <franz@ttproducts.de>
     * use rector to improve the PHP code
 
@@ -10,12 +13,12 @@
 2022-10-05 Franz Holzinger  <franz@ttproducts.de>
     * new feature: class FileHandlingApi with methods taken from extensionmanager \TYPO3\CMS\Extensionmanager\Utility\FileHandlingUtility
  to generate an extension ZIP file and download it via the browser
- 
+
 2022-01-20 Franz Holzinger  <franz@ttproducts.de>
     * bugfix issue #1: rename namespace XClass ==> Xclass
 
 2022-01-20 Franz Holzinger  <franz@ttproducts.de>
-    * new feature: XCLASS for \TYPO3\CMS\Core\Database\Schema\SchemaMigrator in order to support 
+    * new feature: XCLASS for \TYPO3\CMS\Core\Database\Schema\SchemaMigrator in order to support
       UPDATE changes in the files ext_tables_static+adt.sql of the extensions static_info_tables_xx .
 
 2022-01-14 Franz Holzinger  <franz@ttproducts.de>
