@@ -7,7 +7,7 @@
     "extension"
   ],
   "support": {
-    "issues": "https://jambage.com/kontakt/forum.html"
+    "issues": "https://github.com/franzholz/addons_em/issues"
   },
   "homepage": "https://jambage.com",
   "authors": [
@@ -21,7 +21,7 @@
     "GPL-2.0-or-later"
   ],
   "require": {
-    "typo3/cms-core": "^11.5 || ^12.4 || ^13"
+    "typo3/cms-core": "^12.4 || ^13 || ^14"
   },
   "autoload": {
     "psr-4": {
@@ -36,7 +36,11 @@
   },
   "extra": {
     "typo3/cms": {
-      "extension-key": "addons_em"
+      "extension-key": "addons_em",
+      "version": "0.9.3",
+      "Package": {
+          "providesPackages": {}
+      }
     }
   }
 }

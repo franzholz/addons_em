@@ -12,10 +12,10 @@ $EM_CONF[$_EXTKEY] = [
     'author_email' => 'franz@ttproducts.de',
     'state' => 'stable',
     'author_company' => '',
-    'version' => '0.9.2',
+    'version' => '0.9.3',
     'constraints' => [
         'depends' => [
-            'typo3' => '11.5.0-13.4.99',
+            'typo3' => '12.4.0-14.3.99',
         ],
         'conflicts' => [
         ],

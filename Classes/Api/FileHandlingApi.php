@@ -23,7 +23,6 @@ use Psr\Log\LoggerAwareTrait;
  */
 
 use TYPO3\CMS\Core\Core\Environment;
-use TYPO3\CMS\Core\Resource\ResourceFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class FileHandlingApi
