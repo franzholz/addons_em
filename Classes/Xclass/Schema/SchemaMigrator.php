@@ -32,7 +32,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @internal
  */
-class SchemaMigrator extends \TYPO3\CMS\Core\Database\Schema\SchemaMigrator
+readonly class SchemaMigrator extends \TYPO3\CMS\Core\Database\Schema\SchemaMigrator
 {
     /**
      * Import static data (UPDATE and INSERT statements)
