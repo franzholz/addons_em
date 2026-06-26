@@ -1,3 +1,5 @@
+2026-06-26 Franz Holzinger  <franz@ttproducts.de>
+    * compatible only with TYPO3 14.3
 
 2024-12-18 Franz Holzinger  <franz@ttproducts.de>
     * Doctrine executeUpdate has been renamed into executeStatement already in TYPO3 11.5
