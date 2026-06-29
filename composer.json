@@ -1,7 +1,7 @@
 {
   "name": "jambagecom/addons-em",
   "type": "typo3-cms-extension",
-  "description": "Enhancements to the Extension Manager (em).",
+  "description": "Addons Extension Manager (EM) - Enhancements to the Extension Manager",
   "keywords": [
     "TYPO3",
     "extension"
