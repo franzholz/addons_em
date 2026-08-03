@@ -1,7 +1,7 @@
 {
   "name": "jambagecom/addons-em",
   "type": "typo3-cms-extension",
-  "description": "Enhancements to the Extension Manager (em).",
+  "description": "Addons Extension Manager (EM) - Enhancements to the Extension Manager",
   "keywords": [
     "TYPO3",
     "extension"
@@ -26,10 +26,7 @@
   "autoload": {
     "psr-4": {
       "JambageCom\\AddonsEm\\": "Classes"
-    },
-    "classmap": [
-      "lib"
-    ]
+    }
   },
   "replace": {
     "typo3-ter/addons-em": "self.version"
@@ -37,7 +34,7 @@
   "extra": {
     "typo3/cms": {
       "extension-key": "addons_em",
-      "version": "0.10.0",
+      "version": "0.11.0",
       "Package": {
           "providesPackages": {}
       }

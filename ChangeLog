@@ -1,3 +1,6 @@
+2026-08-03 Franz Holzinger  <franz@ttproducts.de>
+    * remove class tx_addonsem_file_div
+
 2026-06-26 Franz Holzinger  <franz@ttproducts.de>
     * compatible only with TYPO3 14.3
 
